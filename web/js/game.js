@@ -65,7 +65,7 @@ function getPresentFromList(){
 
 function sendPresent() {
     var message = 'Your gift is accepted for processing. Our manager will contact you!';
-    sendAjax('save-present', {present_name: present, present_status: 'in_progress'}, message);
+    sendAjax('save-present', {present_name: present, present_status: 'in_progress'}, message, 'game');
 }
 
 function dismissPresent() {
@@ -74,7 +74,7 @@ function dismissPresent() {
 
 function getBonus() {
     var message = 'Your bonus is added!';
-    sendAjax('save-bonus', {bonus_count: bonus_count}, message);
+    sendAjax('save-bonus', {bonus_count: bonus_count}, message, 'game');
     document.getElementById('bonus-count').innerText = bonus_count;
 }
 
@@ -84,24 +84,51 @@ function getMoney() {
         document.getElementById('game-result').innerHTML = '<div class="win-message"><div class="success-win">Please press button to continue game!</div></div>';
     }else{
         var message = 'Your money is added!';
-        sendAjax('save-money', {money_count: money_count}, message);
+        sendAjax('save-money', {money_count: money_count}, message, 'game');
         document.getElementById('money-count').innerText = money_count;
     }
 }
 
-function sendMoney() {
-    alert('send money into cart action!');
+function showModalSend() {
+    var html = '<form id="sendForm" method="post" onsubmit="sendMoney(event)">';
+    html += '<h3>Please enter summ:</h3>'
+    html += '<input type="text" name="send_sum" id="send_sum" />';
+    html += '<input type="submit" class="btn btn-default popup-btn" value="Send" />';
+    html += '</form>';
+    $('#modal').modal('show').find('#modal-content').html(html);
 }
 
-function convertMoney() {
-    alert('convert money to bonus action!');
+function showModalConvert() {
+    var html = '<form id="sendForm" method="post" onsubmit="convertMoney(event)">';
+    html += '<h3>Please enter summ:</h3>'
+    html += '<input type="text" name="convert_sum" id="convert_sum" />';
+    html += '<input type="submit" class="btn btn-default popup-btn" value="Convert" />';
+    html += '</form>';
+    $('#modal').modal('show').find('#modal-content').html(html);
 }
 
-function sendAjax(action, params, message){
+function convertMoney(e) {
+    e.preventDefault();
+    var convert_sum = $('#convert_sum').val();
+    var message = 'Your request was success!';
+    sendAjax('convert-money', {convert_sum: convert_sum}, message);
+    location.reload();
+}
+
+function sendMoney(e) {
+    e.preventDefault();
+    var send_sum = $('#send_sum').val();
+    var message = 'Your request was success!';
+    sendAjax('send-money', {send_sum: send_sum}, message);
+    location.reload();
+}
+
+function sendAjax(action, params, message, type){
     var url = 'index.php?r=game/' + action;
     $.post(url, params, function () {
         alert(message);
-        document.getElementById('game-result').innerHTML = '<div class="win-message"><div class="success-win">Please press button to continue game!</div></div>';
+        if(type == 'game')
+            document.getElementById('game-result').innerHTML = '<div class="win-message"><div class="success-win">Please press button to continue game!</div></div>';
     }).fail(function () {
         alert('Sorry something is wrong. Please contact administrator!');
     });
