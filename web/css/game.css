@@ -1,0 +1,75 @@
+.main-game-container{
+    display: block;
+    margin: 20px 0px;
+}
+
+.top-panel{
+    display: block;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    height: 40px;
+}
+
+.top-panel-items{
+    display: block;
+    float: left;
+    margin: 10px;
+}
+
+.push-button{
+    display: block;
+    margin: 40px auto;
+    width: 200px;
+}
+
+.push-button button {
+    width: 200px;
+    height: 40px;
+}
+
+#game-result{
+    display: block;
+    border: 1px solid black;
+    width: 600px;
+    height:300px;
+    text-align: center;
+    color: red;
+    font-size: 23px;
+    margin: 0 auto;
+}
+
+.win-message,
+.win-btn{
+    display: block;
+    margin: 50px 0px;
+}
+
+.success-win{
+    color: green;
+}
+
+.not-win{
+    color: red;
+}
+
+.get-present,
+.dismiss-present{
+    color: white;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 0 40px;
+}
+
+.get-present{
+    background-color: #0b75b2;
+    float: left;
+}
+
+.dismiss-present{
+    background-color: orange;
+    float: right;
+}
